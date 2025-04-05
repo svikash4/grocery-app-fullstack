@@ -23,23 +23,18 @@ jobs:
     steps:
       - name: 📦 Checkout code
         uses: actions/checkout@v4
-      - name: 📦 Checkout code
-        uses: actions/checkout@v4
 
       - name: 🧰 Set up Node.js
         uses: actions/setup-node@v4
-      - name: 🧰 Set up Node.js
-        uses: actions/setup-node@v4
+
         with:
           node-version: '18'
 
-      - name: ⬇️ Install dependencies
-        run: npm install
+
       - name: ⬇️ Install dependencies
         run: npm install
 
-      - name: 📦 Zip code
-        run: zip -r backend.zip .
+
       - name: 📦 Zip code
         run: zip -r backend.zip .
 
