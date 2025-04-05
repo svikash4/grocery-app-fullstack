@@ -1,11 +1,10 @@
 module.exports = {
-    user: 'your-db-user',
-    password: 'your-db-password',
-    server: 'your-db-server.database.windows.net',
-    database: 'grocery-db',
-    options: {
-      encrypt: true,
-      enableArithAbort: true
-    }
-  };
-  
+  user: 'vikash',
+  password: 'V!kash47',
+  server: 'dev-grocery-us-c-db.database.windows.net',
+  database: 'dev-grocery-us-c-db',
+  options: {
+    encrypt: true,
+    enableArithAbort: true
+  }
+};
