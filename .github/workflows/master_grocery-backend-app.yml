@@ -1,7 +1,6 @@
 name: Deploy Backend to Azure App Service
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -13,28 +12,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: 📦 Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: 🔍 Show folder structure (debugging)
+        run: ls -R
+
+      - name: 🧰 Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      - name: Install backend dependencies
-        run: |
-          cd backend
-          npm install
+      - name: ⬇️ Install backend dependencies
+        working-directory: backend
+        run: npm install
 
-      - name: Zip backend code
-        run: |
-          cd backend
-          zip -r ../backend.zip .
+      - name: 📦 Zip backend code
+        working-directory: backend
+        run: zip -r ../backend.zip .
 
-      - name: Deploy to Azure Web App
+      - name: 🚀 Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: grocery-backend-app   # 🔁 Replace with your actual App Service name
+          app-name: grocery-backend-app  # Replace with your App Service name
           slot-name: production
           package: ./backend.zip
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
