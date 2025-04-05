@@ -7,8 +7,8 @@ router.post('/order', async (req, res) => {
   const { userId, items } = req.body;
   try {
     await sql.connect(dbConfig);
-    const orderRes = await sql.query`INSERT INTO Orders (UserId, OrderDate) OUTPUT INSERTED.Id VALUES (${userId}, GETDATE())`;
-    const orderId = orderRes.recordset[0].Id;
+    const result = await sql.query`INSERT INTO Orders (UserId, OrderDate) OUTPUT INSERTED.Id VALUES (${userId}, GETDATE())`;
+    const orderId = result.recordset[0].Id;
 
     for (let item of items) {
       await sql.query`INSERT INTO OrderItems (OrderId, ProductId, Quantity) VALUES (${orderId}, ${item.productId}, ${item.quantity})`;
@@ -16,6 +16,7 @@ router.post('/order', async (req, res) => {
 
     res.sendStatus(200);
   } catch (err) {
+    console.error('ORDER ERROR:', err);
     res.status(500).send(err.message);
   }
 });

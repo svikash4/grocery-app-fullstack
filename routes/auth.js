@@ -10,6 +10,7 @@ router.post('/register', async (req, res) => {
     await sql.query`INSERT INTO Users (Name, Email, Password) VALUES (${name}, ${email}, ${password})`;
     res.sendStatus(200);
   } catch (err) {
+    console.error('REGISTER ERROR:', err);
     res.status(500).send(err.message);
   }
 });
@@ -19,9 +20,13 @@ router.post('/login', async (req, res) => {
   try {
     await sql.connect(dbConfig);
     const result = await sql.query`SELECT * FROM Users WHERE Email=${email} AND Password=${password}`;
-    if (result.recordset.length > 0) res.json(result.recordset[0]);
-    else res.status(401).send('Invalid credentials');
+    if (result.recordset.length > 0) {
+      res.json(result.recordset[0]);
+    } else {
+      res.status(401).send('Invalid credentials');
+    }
   } catch (err) {
+    console.error('LOGIN ERROR:', err);
     res.status(500).send(err.message);
   }
 });
