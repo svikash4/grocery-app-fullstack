@@ -1,6 +1,7 @@
 name: Deploy Node.js Backend (root) to Azure App Service
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
